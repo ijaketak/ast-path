@@ -1,0 +1,73 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 53e4cf9c933afd12cd863b9cf90f6b7da64d7da51faa5210c78bcc394ca09648
+
+name:           ast-path
+version:        0.1.1
+synopsis:       vocabulary representation for predicting program properties
+
+description:    AST-path is a representation for predicting program properties.
+                .
+                AST-path is described in the paper "A General Path-Based Representation for Predicting Program Properties" (PLDI'2018) <https://arxiv.org/abs/1803.09544>
+                and used at <https://code2vec.org/> and at <https://code2seq.org/>.
+                .
+                @
+                {-\# LANGUAGE DeriveGeneric \#-}
+                import Data.ASTPath
+                .
+                data Tree a = Leaf a | Node (Tree a) (Tree a)
+                \  deriving (Eq, Show, Generic)
+                .
+                instance AST a => AST (Tree a)
+                instance AST Int where
+                \  astPathWithHalf = terminalPath show
+                .
+                >>> astPath $ Node (Leaf 0) (Node (Leaf 1) (Leaf 2))
+                [(\"Node\",[\"Leaf\","1"],[\"Leaf\","2"]),(\"Node\",[\"Leaf\","0"],[\"Node\",\"Leaf\","1"]),(\"Node\",[\"Leaf\","0"],[\"Node\",\"Leaf\","2"])]
+                @
+category:       Data, Natural Language Processing
+homepage:       https://github.com/ijaketak/ast-path#readme
+bug-reports:    https://github.com/ijaketak/ast-path/issues
+author:         Keito Kajitani
+maintainer:     ijaketak@gmail.com
+copyright:      2019 Keito Kajitani
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/ijaketak/ast-path
+
+library
+  exposed-modules:
+      Data.ASTPath
+  other-modules:
+      Paths_ast_path
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite ast-path-test
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_ast_path
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wno-missing-methods
+  build-depends:
+      ast-path
+    , base >=4.7 && <5
+    , tasty
+    , tasty-hunit
+  default-language: Haskell2010
