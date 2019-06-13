@@ -1,5 +1,5 @@
 name:                ast-path
-version:             0.1.1
+version:             0.1.2
 github:              "ijaketak/ast-path"
 license:             BSD3
 author:              "Keito Kajitani"
@@ -9,30 +9,8 @@ copyright:           "2019 Keito Kajitani"
 category: Data, Natural Language Processing
 synopsis: |
   vocabulary representation for predicting program properties
-
-# To avoid duplicated efforts in documentation and dealing with the
-# complications of embedding Haddock markup inside cabal files, it is
-# common to point users to the README.md file.
 description: |
-  AST-path is a representation for predicting program properties.
-
-  AST-path is described in the paper "A General Path-Based Representation for Predicting Program Properties" (PLDI'2018) <https://arxiv.org/abs/1803.09544>
-  and used at <https://code2vec.org/> and at <https://code2seq.org/>.
-
-  @
-  {-\# LANGUAGE DeriveGeneric \#-}
-  import Data.ASTPath
-
-  data Tree a = Leaf a | Node (Tree a) (Tree a)
-  \  deriving (Eq, Show, Generic)
-
-  instance AST a => AST (Tree a)
-  instance AST Int where
-  \  astPathWithHalf = terminalPath show
-
-  >>> astPath $ Node (Leaf 0) (Node (Leaf 1) (Leaf 2))
-  [(\"Node\",[\"Leaf\","1"],[\"Leaf\","2"]),(\"Node\",[\"Leaf\","0"],[\"Node\",\"Leaf\","1"]),(\"Node\",[\"Leaf\","0"],[\"Node\",\"Leaf\","2"])]
-  @
+  Please see the README on GitHub at <https://github.com/ijaketak/ast-path#readme>
 
 dependencies:
 - base >= 4.7 && < 5
