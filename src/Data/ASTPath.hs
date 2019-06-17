@@ -17,6 +17,7 @@ module Data.ASTPath
   , AST(..)
   , treePath
   , terminalPath
+  , nullPath
   , AST'(..)
   ) where
 
@@ -51,6 +52,10 @@ treePath a c = astPathWithHalf' (from a :: Rep a a) c
 -- | Typical implementation for terminal node type.
 terminalPath :: (a -> String) -> a -> String -> ([ASTPath], [HalfPath])
 terminalPath f x _ = ([], [[f x]])
+
+-- | No path implementation for auxiliary data type.
+nullPath :: a -> String -> ([ASTPath], [HalfPath])
+nullPath _ _ = ([], [])
 
 -- | Generate AST-paths from tree.
 astPath :: AST a => a -> [ASTPath]

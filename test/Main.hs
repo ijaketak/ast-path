@@ -21,12 +21,18 @@ data Exp1 a
   | Mul [Exp1 a]
   deriving (Eq, Show, Generic)
 
+data AuxList a = Nil () | Cons a (AuxList a)
+  deriving (Eq, Show, Generic)
+
 instance AST a => AST (Tree a)
 instance AST a => AST (Exp1 a)
 instance AST a => AST (Exp2 a)
+instance AST a => AST (AuxList a)
 
 instance AST Int where
   astPathWithHalf = terminalPath show
+instance AST () where
+  astPathWithHalf = nullPath
 
 main :: IO ()
 main = do
@@ -88,4 +94,18 @@ unitTests = testGroup "unit tests"
       (m, [p, a, v, "3"], [p, a, v, "2"]) `elem` path
     assertBool "path 10" $
       (m, [p, a, v, "3"], [p, a, v, "1"]) `elem` path
+  , testCase "list with auxiliary type" $ do
+    let l :: AuxList Int
+        l = Cons 1 $ Cons 2 $ Cons 3 $ Nil ()
+        path = astPath l
+        n = "Nil"
+        c = "Cons"
+    assertBool "path 1" $
+      (c, ["2"], [c, "3"]) `elem` path
+    assertBool "path 2" $
+      (c, ["1"], [c, "2"]) `elem` path
+    assertBool "path 3" $
+      (c, ["1"], [c, c, "3"]) `elem` path
+    assertBool "not contains ()" $
+      "()" `notElem` concatMap toList path
   ]
