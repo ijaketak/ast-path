@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7286c954518553459704368e3c5eb84afe6a8f7181d03ce1aba6dda8e981cc73
+-- hash: 967d6a87ca5791c1bad521afc79041930ac7ac90edf72e935cfce4feef04943e
 
 name:           ast-path
-version:        0.1.2
+version:        0.2.0
 synopsis:       vocabulary representation for predicting program properties
 
 description:    Please see the README on GitHub at <https://github.com/ijaketak/ast-path#readme>
