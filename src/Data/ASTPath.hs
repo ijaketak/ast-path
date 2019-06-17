@@ -12,6 +12,7 @@
 module Data.ASTPath
   ( type HalfPath
   , type ASTPath
+  , toList
   , astPath
   , AST(..)
   , treePath
@@ -25,6 +26,12 @@ type HalfPath = [String]
 
 -- | (top node, [..., start node], [..., end node])
 type ASTPath = (String, HalfPath, HalfPath)
+
+toList :: ASTPath -> [String]
+toList (t, ls, rs) = revApp ls $ t : rs
+ where
+  revApp [] ys = ys
+  revApp (x:xs) ys = revApp xs $ x : ys
 
 -- | Typeclass for tree or terminal node.
 class AST a where
